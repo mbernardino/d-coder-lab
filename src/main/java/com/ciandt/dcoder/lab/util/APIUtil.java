@@ -39,8 +39,14 @@ public class APIUtil {
      * Creates the Builder (Jersey - java framework to invoke and create APIs) 
      */
     public static Builder createBuilder( String apiSpecificPath, MultivaluedMap<String,String> queryParams ) {
-        
-        String apiPath = BASE_URI + apiSpecificPath;
+        return APIUtil.createBuilder(BASE_URI, apiSpecificPath, queryParams);
+    }
+    
+    /**
+     * Creates the Builder (Jersey - java framework to invoke and create APIs) 
+     */
+    public static Builder createBuilder( String rootPath, String apiSpecificPath, MultivaluedMap<String,String> queryParams ) {
+        String apiPath = rootPath + apiSpecificPath;
         System.out.println( "Creating builder for API path = " + apiPath );
         
         Client client = Client.create();

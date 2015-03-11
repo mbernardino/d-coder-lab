@@ -6,7 +6,9 @@ import com.ciandt.dcoder.lab.model.Card;
 import com.ciandt.dcoder.lab.model.Person;
 import com.ciandt.dcoder.lab.util.APIUtil;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class CardAPILab {
     
@@ -66,7 +68,50 @@ public class CardAPILab {
         
         return card;
     }
-
+    
+    /**
+     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
+     */
+    public String searchCards(String query, String localeCode, Long personId) {
+        
+        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards?q=" + query;
+        if ( localeCode != null ) {
+            apiSpecificPath += "&locale=" + localeCode;
+        } else {
+            throw new RuntimeException( "Locale is required for searches");
+        }
+        if ( personId != null ) {
+            apiSpecificPath += "&personId=" + personId;
+        }
+        
+        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
+        Builder builder = APIUtil.createBuilder("https://d1-prd.appspot.com",
+                apiSpecificPath, null);
+        
+        //invoke the API
+        String response = builder.get(String.class);
+        System.out.println( "Search cards response = " + response);
+        
+        return response;
+    }
+    
+    /**
+     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
+     */
+    public String getCard(String mnemonic) {
+        
+        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards/" + mnemonic;
+        
+        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
+        Builder builder = APIUtil.createBuilder("https://d1-prd.appspot.com",
+                apiSpecificPath, null);
+        
+        //invoke the API
+        String response = builder.get(String.class);
+        System.out.println( "Card for mnemonic " + mnemonic + " = " + response);
+        
+        return response;
+    }
     
     /**
      * Execute the code
@@ -75,9 +120,10 @@ public class CardAPILab {
     public static void main(String[] args) {
         CardAPILab cardAPILab = new CardAPILab();
         
-        
         try {
             cardAPILab.createCard(123L, "This is the title", "This is the summary", "This is the <b>content</b>");
+            cardAPILab.searchCards("teste", "pt-BR", 5639445604728832L);
+            cardAPILab.getCard("daniel-viveiros-test");
         } catch ( Exception exc ) {
             exc.printStackTrace();
             System.exit(-1);
