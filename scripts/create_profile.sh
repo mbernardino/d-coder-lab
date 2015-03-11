@@ -4,7 +4,7 @@
 # Use id returned from previous call as the personId json attribute below
 curl -i \
 -H "CLIENT_ID: 1" \
--H "API_KEY: 4138e5e63e900acb213ff48679de35deac380c9a51ab7a9c9ee5dd697e0516a9" \
+-H "API_KEY: cf812f3722f0ff885501330df71396e2d08baacb87cc7c8a6f311b1ddd928915" \
 -H "Accept:application/json" \
 -H "Content-Type:application/json; charset=utf-8" \
 -H "backdoor-accesskey:079befc173920aaffcc7826389" \
