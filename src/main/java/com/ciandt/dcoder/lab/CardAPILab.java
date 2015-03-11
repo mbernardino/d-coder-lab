@@ -3,12 +3,9 @@ package com.ciandt.dcoder.lab;
 import java.util.Date;
 
 import com.ciandt.dcoder.lab.model.Card;
-import com.ciandt.dcoder.lab.model.Person;
 import com.ciandt.dcoder.lab.util.APIUtil;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource.Builder;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class CardAPILab {
     
