@@ -16,7 +16,6 @@
 	</organization>
 
 	<properties>
-		<jersey.version>1.17.1</jersey.version>
 		<jackson.version>2.3.1</jackson.version>
 		<google.api.client.version>1.17.0-rc</google.api.client.version>
 		<!-- Build properties -->
@@ -27,15 +26,42 @@
 	<dependencies>
 
 		<!-- Jersey -->
-
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-guice</artifactId>
+			<version>1.17.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.0-m04</version>
+		</dependency>
+		
+		
+		<!-- Java Libs -->
+		<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+		    <groupId>javax.ws.rs</groupId>
+		    <artifactId>javax.ws.rs-api</artifactId>
+		    <version>2.0</version>
 		</dependency>
 
 		<!-- Jackson JSON Parser -->
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -51,9 +77,9 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+		
 
 		<!-- Apache Commons -->
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
@@ -95,7 +121,6 @@
 		</dependency>
 
 		<!-- Google APIs Clients -->
-
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
@@ -147,7 +172,6 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
