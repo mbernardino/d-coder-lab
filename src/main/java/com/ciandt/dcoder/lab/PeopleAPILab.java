@@ -1,12 +1,12 @@
 package com.ciandt.dcoder.lab;
 
-import java.util.ResourceBundle;
+import java.util.Date;
 
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
+import org.apache.commons.lang3.StringUtils;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
+import com.ciandt.dcoder.lab.model.Person;
+import com.ciandt.dcoder.lab.util.APIUtil;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 /**
@@ -15,39 +15,72 @@ import com.sun.jersey.api.client.WebResource.Builder;
  */
 public class PeopleAPILab {
 	
-	/** Property file: d-coder-lab.properties */
-	private static ResourceBundle properties;
-	
-	private static String BASE_URI;
-	
-	static {
-		properties = ResourceBundle.getBundle( "d-coder-lab");
-		BASE_URI = properties.getString("base_uri");
-	}
-	
 	/**
 	 * Lists all persons created inside Smart Canvas
 	 */
 	public String listPersons() {
-	    String apiPath = BASE_URI + "/people/v2/people";
-	    System.out.println( "List persons API Path = " + apiPath );
 	    
-		Client client = Client.create();
-		client.setReadTimeout(0); //infinity
-		client.setFollowRedirects(false);
-		WebResource webResource = client.resource( apiPath );
-		Builder builder = webResource.accept(MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, MediaType.TEXT_XML).type(
-                MediaType.APPLICATION_JSON);
-		String clientId = properties.getString("client_id");
-        String apiKey = properties.getString("api_key");
-        builder.header("CLIENT_ID", clientId);
-        builder.header("API_KEY", apiKey);
+	    //creates the builder
+	    String apiSpecificPath = "/people/v2/people";
+		Builder builder = APIUtil.createBuilder(apiSpecificPath); 
 		
+		//invoke the API
         String response = builder.get(String.class);
 		System.out.println( "List persons response = " + response);
         
         return response;
 	}
+	
+	/**
+     * Search for Smart Canvas persons
+     */
+    public String searchPersonByEmail(String email) {
+        
+        String apiSpecificPath = "/people/v2/people/search";
+        
+        //Parameter
+        if ( !StringUtils.isEmpty(email) ) {
+            apiSpecificPath += "?email=" + email;
+        } 
+        
+        //creates the builder
+        Builder builder = APIUtil.createBuilder(apiSpecificPath);
+        
+        //invoke the API
+        String response = builder.get(String.class);
+        System.out.println( "Search person response = " + response);
+        
+        return response;
+    }
+    
+    /**
+     * Create a new person inside Smart Canvas
+     */
+    public void createPerson( String name, String email ) {
+        
+        String apiSpecificPath = "/people/v2/people";
+        
+        Person person = new Person();
+        person.setDisplayName(name);
+        person.setEmail(email);
+        person.setActive(true);
+        person.setBirthdate( new Date() );
+        person.setCompany( "CI&T" );
+        person.setGender( "Male" );
+        person.setLastUpdate( new Date() );
+        person.setLocale( "pt-BR");
+        person.setMaritalStatus( "Married" );
+        person.setPosition( "Developer" );
+        person.setType( "USER" );
+        
+        Builder builder = APIUtil.createBuilderForPojo(apiSpecificPath);
+        ClientResponse response = builder.put(ClientResponse.class, person);
+
+        System.out.println( "Create person response:");
+        System.out.println( ">> Status = " + response.getStatus());
+        System.out.println( ">> Object = " + response);
+        
+    }
 
 	/**
 	 * Execute the code
@@ -57,7 +90,9 @@ public class PeopleAPILab {
 		PeopleAPILab peopleAPILab = new PeopleAPILab();
 		
 		try {
+		    peopleAPILab.createPerson("Test", "test@ciandt.com");
 			peopleAPILab.listPersons();
+			peopleAPILab.searchPersonByEmail("test@ciandt.com");
 		} catch ( Exception exc ) {
 			exc.printStackTrace();
 			System.exit(-1);
