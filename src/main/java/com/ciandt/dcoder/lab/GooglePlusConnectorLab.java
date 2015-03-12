@@ -86,7 +86,13 @@ public class GooglePlusConnectorLab {
                     System.out.println( activities.size() + " activities found. Let's create some cards!");
                     for (Activity activity: activities) {
                         if (activity.getObject() != null) {
+                            
+                            System.out.println("Processing activity with id = " + activity.getId() );
+                            
+                            //converts the activity into a card
                             Card card = convertActivity( activity );
+                            
+                            //sends the card to Smart Canvas
                             cardAPILab.createCard( card );
                         }
                     }
@@ -290,7 +296,7 @@ public class GooglePlusConnectorLab {
      *            The text to be processed
      * @return The title without specifics html tags and hashtags.
      */
-    public String generateTitle(String text) {
+    private String generateTitle(String text) {
         String title = "";
 
         Integer titleSize = 140;
@@ -461,17 +467,6 @@ public class GooglePlusConnectorLab {
         }
 
         return activities;
-    }
-
-    private static <T> T fromJSON(final TypeReference<T> type, final String jsonPacket) {
-        T data = null;
-
-        try {
-            data = new ObjectMapper().readValue(jsonPacket, type);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return data;
     }
 
     /**

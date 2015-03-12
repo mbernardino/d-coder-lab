@@ -125,9 +125,9 @@ public class CardAPILab {
         CardAPILab cardAPILab = new CardAPILab();
         
         try {
-            cardAPILab.createCard( cardAPILab.createCardObject(123L, "This is the title", 
-                    "This is the summary", "This is the <b>content</b>") );
-            cardAPILab.searchCards("teste", "pt-BR", 5639445604728832L);
+            //cardAPILab.createCard( cardAPILab.createCardObject(123L, "This is the title", 
+              //      "This is the summary", "This is the <b>content</b>") );
+            cardAPILab.searchCards("como", "pt-BR", null);
             cardAPILab.getCard("daniel-viveiros-test");
         } catch ( Exception exc ) {
             exc.printStackTrace();
