@@ -17,7 +17,7 @@ import com.sun.jersey.api.json.JSONConfiguration;
  * 
  * @author <a href="mailto:viveiros@ciandt.com">Daniel Viveiros</a>
  */
-public class APIUtil {
+public class APIUtils {
     
     /** Property file: d-coder-lab.properties */
     private static ResourceBundle properties;
@@ -32,14 +32,14 @@ public class APIUtil {
      * Creates the Builder (Jersey - java framework to invoke and create APIs) 
      */
     public static Builder createBuilder( String apiSpecificPath ) {
-        return APIUtil.createBuilder(apiSpecificPath, null);
+        return APIUtils.createBuilder(apiSpecificPath, null);
     }
     
     /**
      * Creates the Builder (Jersey - java framework to invoke and create APIs) 
      */
     public static Builder createBuilder( String apiSpecificPath, MultivaluedMap<String,String> queryParams ) {
-        return APIUtil.createBuilder(BASE_URI, apiSpecificPath, queryParams);
+        return APIUtils.createBuilder(BASE_URI, apiSpecificPath, queryParams);
     }
     
     /**

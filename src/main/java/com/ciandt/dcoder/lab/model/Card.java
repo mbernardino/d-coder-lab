@@ -43,12 +43,13 @@ public class Card {
     private String community;
     private String communityDisplayName;
     
-    
+    private List<Attachment> attachments;
     
     public Card() {
         categoryNames = new ArrayList<String>();
         languages = new ArrayList<String>();
         regions = new ArrayList<String>();
+        attachments = new ArrayList<Attachment>();
     }
     
     public Long getId() {
@@ -286,7 +287,17 @@ public class Card {
     public void setSecurityLevel(Integer securityLevel) {
         this.securityLevel = securityLevel;
     }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
     
-    
+    public void addAttachment( Attachment attachment ) {
+        this.attachments.add( attachment );
+    }
 
 }

@@ -3,7 +3,7 @@ package com.ciandt.dcoder.lab;
 import java.util.Date;
 
 import com.ciandt.dcoder.lab.model.Card;
-import com.ciandt.dcoder.lab.util.APIUtil;
+import com.ciandt.dcoder.lab.util.APIUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource.Builder;
 
@@ -12,10 +12,68 @@ public class CardAPILab {
     /**
      * Create a new person inside Smart Canvas
      */
-    public Card createCard( Long id, String title, String summary, String content ) {
+    public Card createCard( Card card ) {
         
         String apiSpecificPath = "/card/v2/cards";
+
+        Builder builder = APIUtils.createBuilderForPojo(apiSpecificPath);
+        ClientResponse response = builder.put(ClientResponse.class, card);
+
+        System.out.println( "Create card response:");
+        System.out.println( ">> Status = " + response.getStatus());
+        System.out.println( ">> Object = " + response);
         
+        return card;
+    }
+    
+    /**
+     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
+     */
+    public String searchCards(String query, String localeCode, Long personId) {
+        
+        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards?q=" + query;
+        if ( localeCode != null ) {
+            apiSpecificPath += "&locale=" + localeCode;
+        } else {
+            throw new RuntimeException( "Locale is required for searches");
+        }
+        if ( personId != null ) {
+            apiSpecificPath += "&personId=" + personId;
+        }
+        
+        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
+        Builder builder = APIUtils.createBuilder("https://d1-prd.appspot.com",
+                apiSpecificPath, null);
+        
+        //invoke the API
+        String response = builder.get(String.class);
+        System.out.println( "Search cards response = " + response);
+        
+        return response;
+    }
+    
+    /**
+     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
+     */
+    public String getCard(String mnemonic) {
+        
+        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards/" + mnemonic;
+        
+        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
+        Builder builder = APIUtils.createBuilder("https://d1-prd.appspot.com",
+                apiSpecificPath, null);
+        
+        //invoke the API
+        String response = builder.get(String.class);
+        System.out.println( "Card for mnemonic " + mnemonic + " = " + response);
+        
+        return response;
+    }
+    
+    /**
+     * Create a fake card for testing purposes
+     */
+    protected Card createCardObject( Long id, String title, String summary, String content) {
         Card card = new Card();
         
         //Basic info
@@ -56,58 +114,7 @@ public class CardAPILab {
         //card.setCommunity("Community Test");
         //card.setCommunityDisplayName("Community Display Name Test");
         
-        Builder builder = APIUtil.createBuilderForPojo(apiSpecificPath);
-        ClientResponse response = builder.put(ClientResponse.class, card);
-
-        System.out.println( "Create card response:");
-        System.out.println( ">> Status = " + response.getStatus());
-        System.out.println( ">> Object = " + response);
-        
         return card;
-    }
-    
-    /**
-     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
-     */
-    public String searchCards(String query, String localeCode, Long personId) {
-        
-        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards?q=" + query;
-        if ( localeCode != null ) {
-            apiSpecificPath += "&locale=" + localeCode;
-        } else {
-            throw new RuntimeException( "Locale is required for searches");
-        }
-        if ( personId != null ) {
-            apiSpecificPath += "&personId=" + personId;
-        }
-        
-        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
-        Builder builder = APIUtil.createBuilder("https://d1-prd.appspot.com",
-                apiSpecificPath, null);
-        
-        //invoke the API
-        String response = builder.get(String.class);
-        System.out.println( "Search cards response = " + response);
-        
-        return response;
-    }
-    
-    /**
-     * Search for a card. This method is better because it returns the numbers of likes, dislikes and so on.
-     */
-    public String getCard(String mnemonic) {
-        
-        String apiSpecificPath = "/sc2/d-coder/h/brain/card/v3/cards/" + mnemonic;
-        
-        //Builder builder = APIUtil.createBuilder(apiSpecificPath, queryParam);
-        Builder builder = APIUtil.createBuilder("https://d1-prd.appspot.com",
-                apiSpecificPath, null);
-        
-        //invoke the API
-        String response = builder.get(String.class);
-        System.out.println( "Card for mnemonic " + mnemonic + " = " + response);
-        
-        return response;
     }
     
     /**
@@ -118,7 +125,8 @@ public class CardAPILab {
         CardAPILab cardAPILab = new CardAPILab();
         
         try {
-            cardAPILab.createCard(123L, "This is the title", "This is the summary", "This is the <b>content</b>");
+            cardAPILab.createCard( cardAPILab.createCardObject(123L, "This is the title", 
+                    "This is the summary", "This is the <b>content</b>") );
             cardAPILab.searchCards("teste", "pt-BR", 5639445604728832L);
             cardAPILab.getCard("daniel-viveiros-test");
         } catch ( Exception exc ) {

@@ -29,6 +29,7 @@ public class Profile {
     private String coach;
     private Long personId;
     private Date lastUpdated;
+    private Integer securityLevel = 0;
     
     public Long getId() {
         return id;
@@ -167,6 +168,12 @@ public class Profile {
     }
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+    public Integer getSecurityLevel() {
+        return securityLevel;
+    }
+    public void setSecurityLevel(Integer securityLevel) {
+        this.securityLevel = securityLevel;
     }   
     
 }
