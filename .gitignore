@@ -15,5 +15,5 @@ target/
 .classpath
 .project
 .settings/
-.idea/
+.idea/*
 d-coder-lab.im
