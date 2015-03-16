@@ -43,8 +43,8 @@ public class GooglePlusConnectorLab {
     private static String GOOGLE_API_KEY;
 
     /** TODO: You must change the values bellow for your specific information */
-    private static String PROVIDER_ID = "ViveirosGooglePlus";
-    private static String MY_CATEGORY = "DCoderLabViveiros";
+    private static String PROVIDER_ID = "MoisesGooglePlus";
+    private static String MY_CATEGORY = "DCoderLabMoises";
     
     private static final String GOOGLE_DRIVE_URL_REGEX = "https?://(drive|docs)\\.google\\.com[^\\s]*/(spreadsheets?|file|drawings?|documents?|presentations?)/[^\\s]*";
 
