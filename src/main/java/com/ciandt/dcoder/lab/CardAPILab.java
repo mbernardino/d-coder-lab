@@ -75,45 +75,45 @@ public class CardAPILab {
      */
     protected Card createCardObject( Long id, String title, String summary, String content) {
         Card card = new Card();
-        
+
         //Basic info
         card.setId(id);
-        card.setAuthorDisplayName( "Daniel Viveiros" );
-        card.setAuthorEmail( "viveiros@ciandt.com");
-        card.setAuthorId(5639445604728832L);
-        card.setAuthorImageURL("https://lh3.googleusercontent.com/-tr003KjHJYk/AAAAAAAAAAI/AAAAAAAAKQ4/4wSwmn3j46c/photo.jpg?sz=50");
+        card.setAuthorDisplayName( "Moises Bernardino" );
+        card.setAuthorEmail( "moises@ciandt.com");
+        card.setAuthorId(5519991819810000L);
+        card.setAuthorImageURL("https://lh4.googleusercontent.com/-zYZ_Y4xTauY/U-NyP-LSW5I/AAAAAAAAABA/jwadog9l5pg/s290-no/1d33860.jpg?sz=50");
         card.setAutoModerated(true);
         card.setCreatedAt(new Date());
         card.setIsFeatured(false);
-        card.setMnemonic( "daniel-viveiros-test");
-        card.setProviderUserId("118239183782204424177");
+        card.setMnemonic( "moises-test");
+        card.setProviderUserId("113894594681783034168");
         card.setUpdated(null);
         card.setExpirationDate(null);
         card.setPublishingDate(null);
         card.setSecurityLevel(0);
         card.addCategory("teste");
         card.addCategory("d-coder");
-        
+
         //i18n
         card.addLanguage("pt");
         card.addLanguage("us");
         card.addRegion("BR");
         card.addRegion("US");
-        
+
         //Content info
         card.setTitle(title);
         card.setDescription(summary);
         card.setContent(content);
         card.setProviderContentId( "123" );
-        card.setProviderContentURL( "http://danielviveiros.com");
+        card.setProviderContentURL( "");
         card.setProviderId( "TestProviderId" );
         card.setProviderUpdated( new Date() );
         card.setProviderPublished( new Date() );
-        
+
         //Community
         //card.setCommunity("Community Test");
         //card.setCommunityDisplayName("Community Display Name Test");
-        
+
         return card;
     }
     
